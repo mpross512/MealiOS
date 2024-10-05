@@ -14,6 +14,7 @@ struct MealieAPI : HttpCodablePipelineCollection {
     
     private var baseURL = ""
     private var apiBaseUrl: HttpUrl
+    private var apiToken: String?
     
     init() {
         self.baseURL = ""
@@ -25,7 +26,7 @@ struct MealieAPI : HttpCodablePipelineCollection {
         self.apiBaseUrl = HttpUrl(host: baseURL, trailingSlashEnabled: false)
     }
     
-    func login(username: String, password: String) async throws {
+    mutating func login(username: String, password: String) async throws {
         let request = HttpRawRequest(
             url: apiBaseUrl.path(["api", "auth", "token"]),
             method: .post,
@@ -41,8 +42,25 @@ struct MealieAPI : HttpCodablePipelineCollection {
         )
         
         let response = try await client.dataTask(request)
+        let json = try JSONSerialization.jsonObject(with: response.data, options: []) as! [String:Any]
+        let accessToken = json["access_token"] as? String
+        apiToken = accessToken
+    }
+    
+    func getRecipes() async throws -> [Recipe] {
+        let request = HttpRawRequest(
+            url: apiBaseUrl.path(["api", "recipes"]),
+            method: .get,
+            headers: [
+                "Authorization": "Bearer \(apiToken!)"
+            ]
+        )
+        
+        let response = try await client.dataTask(request)
         let json = try JSONSerialization.jsonObject(with: response.data, options: [])
         print(json)
+        
+        return []
     }
     
 }

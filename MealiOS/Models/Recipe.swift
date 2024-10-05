@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Recipe: Codable {
+public struct Recipe: Codable {
     let id: Int
     let name: String
     let description: String

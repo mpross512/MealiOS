@@ -21,4 +21,14 @@ public class MealieClient {
             print(error)
         }
     }
+    
+    public func getRecipes() async -> [Recipe] {
+        do {
+            return try await api.getRecipes()
+        } catch {
+            print(error)
+            return []
+        }
+        
+    }
 }

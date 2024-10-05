@@ -32,6 +32,7 @@ struct LoginView: View {
             Button("Login") {
                 Task {
                     await mealieClient.getToken(url: mealieURL, username: username, password: password)
+                    await mealieClient.getRecipes()
                 }
             }
         }
