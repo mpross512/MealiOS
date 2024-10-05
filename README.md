@@ -1,10 +1,10 @@
 # MealiOS
 
-A Melie Client for iOS!
+A Mealie Client for iOS!
 
 ## Current Features
 
 ## Roadmap
 
-[] iPadOS Client
-[] macOS Client
+- [ ] iPadOS Client
+- [ ] macOS Client
