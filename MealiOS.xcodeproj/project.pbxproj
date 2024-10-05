@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		4C980D432CB1999B00B9EB14 /* SwiftHttp in Frameworks */ = {isa = PBXBuildFile; productRef = 4C980D422CB1999B00B9EB14 /* SwiftHttp */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		4C980D112CB0F01B00B9EB14 /* MealiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MealiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +27,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C980D432CB1999B00B9EB14 /* SwiftHttp in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +70,7 @@
 			);
 			name = MealiOS;
 			packageProductDependencies = (
+				4C980D422CB1999B00B9EB14 /* SwiftHttp */,
 			);
 			productName = MealiOS;
 			productReference = 4C980D112CB0F01B00B9EB14 /* MealiOS.app */;
@@ -94,6 +100,9 @@
 			);
 			mainGroup = 4C980D082CB0F01B00B9EB14;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				4C980D412CB1999B00B9EB14 /* XCRemoteSwiftPackageReference "swift-http" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 4C980D122CB0F01B00B9EB14 /* Products */;
 			projectDirPath = "";
@@ -324,6 +333,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4C980D412CB1999B00B9EB14 /* XCRemoteSwiftPackageReference "swift-http" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/binarybirds/swift-http";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4C980D422CB1999B00B9EB14 /* SwiftHttp */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4C980D412CB1999B00B9EB14 /* XCRemoteSwiftPackageReference "swift-http" */;
+			productName = SwiftHttp;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4C980D092CB0F01B00B9EB14 /* Project object */;
 }

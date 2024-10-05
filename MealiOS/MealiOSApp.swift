@@ -25,7 +25,8 @@ struct MealiOSApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LoginView()
+                .environment(MealieClient())
         }
         .modelContainer(sharedModelContainer)
     }
