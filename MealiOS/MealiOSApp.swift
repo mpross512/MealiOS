@@ -22,11 +22,13 @@ struct MealiOSApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+    
+    @State private var mealieClient = MealieClient()
 
     var body: some Scene {
         WindowGroup {
-            LoginView()
-                .environment(MealieClient())
+            MasterView()
+                .environment(mealieClient)
         }
         .modelContainer(sharedModelContainer)
     }

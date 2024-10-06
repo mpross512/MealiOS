@@ -26,7 +26,17 @@ struct MealieAPI : HttpCodablePipelineCollection {
         self.apiBaseUrl = HttpUrl(host: baseURL, trailingSlashEnabled: false)
     }
     
-    mutating func login(username: String, password: String) async throws {
+    init(baseURL: String, apiToken: String) {
+        self.baseURL = baseURL
+        self.apiBaseUrl = HttpUrl(host: baseURL, trailingSlashEnabled: false)
+        self.apiToken = apiToken
+    }
+    
+    func getToken() -> String? {
+        apiToken
+    }
+    
+    mutating func login(username: String, password: String) async throws -> Bool {
         let request = HttpRawRequest(
             url: apiBaseUrl.path(["api", "auth", "token"]),
             method: .post,
@@ -42,25 +52,29 @@ struct MealieAPI : HttpCodablePipelineCollection {
         )
         
         let response = try await client.dataTask(request)
-        let json = try JSONSerialization.jsonObject(with: response.data, options: []) as! [String:Any]
-        let accessToken = json["access_token"] as? String
-        apiToken = accessToken
+        if(response.statusCode == .ok) {
+            let json = try JSONSerialization.jsonObject(with: response.data, options: []) as! [String:Any]
+            let accessToken = json["access_token"] as? String
+            apiToken = accessToken
+            return true
+        } else {
+            return false
+        }
     }
     
-    func getRecipes() async throws -> [Recipe] {
+    func getVersion() async throws -> String {
         let request = HttpRawRequest(
-            url: apiBaseUrl.path(["api", "recipes"]),
-            method: .get,
-            headers: [
-                "Authorization": "Bearer \(apiToken!)"
-            ]
+            url: apiBaseUrl.path(["api", "app", "about"]),
+            method: .get
         )
-        
         let response = try await client.dataTask(request)
-        let json = try JSONSerialization.jsonObject(with: response.data, options: [])
-        print(json)
-        
-        return []
+        let json = try JSONSerialization.jsonObject(with: response.data, options: []) as! [String:Any]
+        return json["version"] as? String ?? ""
+    }
+    
+    func getRecipes() async throws -> [Recipe] {        
+        let recipePage: RecipePage = try await decodableRequest(executor: client.dataTask, url: apiBaseUrl.path(["api", "recipes"]), method: .get, headers: ["Authorization": "Bearer \(apiToken!)"])
+        return recipePage.items
     }
     
 }

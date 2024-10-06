@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct MasterView: View {
-    
-    @State private var loggedIn = false
+    @Environment(MealieClient.self) var mealieClient
     
     var body: some View {
         ZStack {
-            if(loggedIn) {
+            if(mealieClient.loggedIn) {
                 HomeView()
             } else {
                 LoginView()

@@ -12,7 +12,7 @@ struct LoginView: View {
     @State private var username: String = ""
     @State private var password: String = ""
     
-    private var mealieClient = MealieClient()
+    @Environment(MealieClient.self) var mealieClient
     
     var body: some View {
         VStack {
@@ -31,8 +31,7 @@ struct LoginView: View {
                 .textContentType(.password)
             Button("Login") {
                 Task {
-                    await mealieClient.getToken(url: mealieURL, username: username, password: password)
-                    await mealieClient.getRecipes()
+                    await mealieClient.login(url: mealieURL, username: username, password: password)
                 }
             }
         }
